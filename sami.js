@@ -2,4 +2,4 @@ function edited(string) {
   console.log(string);
 }
 
-edited("Edited");
+edited("Edited Version 2 ");
