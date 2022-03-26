@@ -1,1 +1,5 @@
-console.log('Hello From Sami');
+function edited(string) {
+  console.log(string);
+}
+
+edited("Edited");
