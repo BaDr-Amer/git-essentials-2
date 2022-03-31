@@ -32,24 +32,44 @@ const users = [
 ]
 
 app.post('/', (req, res) => {
-    users.push(req.body)
-    res.send(req.body)
+    let x={
+       id:users[users.length-1].id+1 ,
+        ...req.body
+    }
+    users.push(x)
+    res.send(users)
 })
 
 app.get('/', (req, res) => {
-    res.send("GET request")
+    res.send(users)
 })
 
 app.put('/', (req, res) => {
-
+let x={
+        id:req.query.id,
+         ...req.body
+     }
+let indx =users.findIndex(item => item.id == req.query.id)
+users[indx]=x
+res.send(users)
 })
 
 app.delete('/', (req, res) => {
-
+let indx =users.findIndex(item => item.id == req.query.id)
+if(indx>=0)
+users.splice(indx, 1)
+res.send(users)
 })
 
 app.patch('/', (req, res) => {
 
+let indx =users.findIndex(item => item.id == req.query.id)
+let x={
+    ...users[indx],
+    ...req.body
+ }
+users[indx]=x
+res.send(users)
 })
 
 app.listen(3000, () => {
