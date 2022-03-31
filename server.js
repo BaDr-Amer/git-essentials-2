@@ -32,26 +32,15 @@ const users = [
 ]
 
 app.post('/', (req, res) => {
-    users.push(req.body)
-    res.send(req.body)
+    user=req.body
+    user['id']=ID++
+    users.push(user)
+    
+    res.send(user)
 })
 
 app.get('/', (req, res) => {
-    res.send("GET request")
+    res.send(users)
 })
 
-app.put('/', (req, res) => {
-
-})
-
-app.delete('/', (req, res) => {
-
-})
-
-app.patch('/', (req, res) => {
-
-})
-
-app.listen(3000, () => {
-    console.log("server is listening on port 3000");
-})
+app.put('/', (req, res) => {})
