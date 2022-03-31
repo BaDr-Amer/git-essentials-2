@@ -68,7 +68,8 @@ app.patch('/:id', (req, res) => {
     const userIndex = users.filter(user => user.id == req.params.id)
     users[--userIndex[0].id] =  {
         ...userIndex[0],
-        ...req.body
+        ...req.body,
+        id: parseInt(req.params.id)
     }
     
     res.json(users[userIndex[0].id])
