@@ -28,6 +28,14 @@ const users = [
             address1: 'address 5',
             address2: 'address 6'
         }
+    },
+    {
+        id: 4,
+        name: 'aseel',
+        profile: {
+            address1: 'address 7',
+            address2: 'address 8'
+        }
     }
 ]
 
@@ -36,20 +44,40 @@ app.post('/', (req, res) => {
     res.send(req.body)
 })
 
+app.get('/:id/:name/:address1/:address2', (req, res) => {
+    res.send({
+        id : req.params.id,
+        name: req.params.name,
+        profile: {
+            address1 : req.params.address1,
+            address2 : req.params.address2,
+        },
+    })
+})
+
 app.get('/', (req, res) => {
-    res.send("GET request")
+    res.send(users)
 })
 
-app.put('/', (req, res) => {
-
+app.put('/:id', (req, res) => {
+    let id = +req.params.id;
+    let body = req.body;
+    let index = users.findIndex(us => us.id === id);
+    if(index >= 0){
+        let updatedUsers = {id: id, ...body};
+        users[index] = updatedUsers;
+        res.send(updatedUsers);
+        console.log(index);
+    }else{
+        res.status(404).send("No user found");
+    }
 })
 
-app.delete('/', (req, res) => {
-
-})
-
-app.patch('/', (req, res) => {
-
+app.delete('/:id', (req, res) => {
+    let id = +req.params.id;
+    let index = users.findIndex(us => us.id === id);
+    let deletedUser = users.splice(index,1);
+    res.send(deletedUser);
 })
 
 app.listen(3000, () => {
