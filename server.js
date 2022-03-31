@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-const users = [
+let users = [
     {
         id: 1,
         name: 'John',
@@ -32,24 +32,43 @@ const users = [
 ]
 
 app.post('/', (req, res) => {
-    users.push(req.body)
-    res.send(req.body)
+   let user=req.body
+  console.log(user)
+   user.id+=1
+   users.push(user)
+   res.send(users)
+    
 })
 
 app.get('/', (req, res) => {
-    res.send("GET request")
-})
+    console.log(req.body)
+
+  })
+
 
 app.put('/', (req, res) => {
-
+    console.log(req.body.id)   
+let index=users.findIndex
+(u=>u.id===parseInt(req.body.id));
+users[index]=req.body
+console.log(index)
+res.send(users)
 })
 
 app.delete('/', (req, res) => {
-
+   users=null
+   res.send(users)
 })
 
 app.patch('/', (req, res) => {
-
+   
+    let index = users.findIndex(
+      u => u.id === parseInt(req.body.id)
+    );
+    for (let key in req.body) {
+      users[index][key] = req.body[key];
+    }
+    res.send(users)
 })
 
 app.listen(3000, () => {
