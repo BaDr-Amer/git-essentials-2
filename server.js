@@ -32,24 +32,46 @@ const users = [
 ]
 
 app.post('/', (req, res) => {
-    users.push(req.body)
-    res.send(req.body)
+    const newUser = {
+        id: ++users.length,
+        ...req.body
+    };
+    users.push(newUser)
+    res.json(newUser)
 })
 
 app.get('/', (req, res) => {
-    res.send("GET request")
+    res.json({
+        count: users.length,
+        users
+    })
 })
 
-app.put('/', (req, res) => {
-
+app.put('/:id', (req, res) => {
+    const newUser = {
+        id: ++users.length,
+        ...req.body
+    }
+    const userIndex = users.filter(user => user.id == req.params.id)
+    users.splice(userIndex.id, 1, req.body)
+    users.pop()
+    res.json(users)
 })
 
-app.delete('/', (req, res) => {
-
+app.delete('/:id', (req, res) => {
+    const userIndex = users.filter(user => user.id == req.params.id)
+    users.splice(userIndex.id, 1)
+    res.json({ status: "success" })
 })
 
-app.patch('/', (req, res) => {
-
+app.patch('/:id', (req, res) => {
+    const userIndex = users.filter(user => user.id == req.params.id)
+    users[--userIndex[0].id] =  {
+        ...userIndex[0],
+        ...req.body
+    }
+    
+    res.json(users[userIndex[0].id])
 })
 
 app.listen(3000, () => {
