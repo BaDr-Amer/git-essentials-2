@@ -1,67 +1,39 @@
 import express from 'express';
 const router = express.Router()
+import User from '../models/User.js'
 
-const users = [
-    {
-        id: 1,
-        name: 'John',
-        profile: {
-            address1: 'address 1',
-            address2: 'address 2'
-        }
-    },
-    {
-        id: 2,
-        name: 'Doe',
-        profile: {
-            address1: 'address 3',
-            address2: 'address 4'
-        }
-    },
-    {
-        id: 3,
-        name: 'mark',
-        profile: {
-            address1: 'address 5',
-            address2: 'address 6'
-        }
-    }
-]
-const authentication = (req, res, next) => {
-    // validation
-    if (req.isAuthenticated) {
-        next()
-    } else {
-        throw new Error('not authenticated')
-    }
-}
-const autheriztion = (req, res, next) => {
-    // validation
-    if (req.isAuthorized) {
-        next()
-    } else {
-        throw new Error('not authorized')
-    }
-    next()
-}
-const handler = (req, res) => {
-    console.log("processing the request")
-    users.push(req.body)
-    res.send(req.body)
-}
-
-router.post('/', authentication, autheriztion, handler)
-
-router.get('/', (req, res) => {
-    res.send("GET request")
+router.post('/', async (req, res) => {
+    const {email, password} = req.body
+    const user = await User.create({email,password})//we used await because create method return promise, and i want it's value(result)
+    res.send(user)
 })
 
-router.put('/', (req, res) => {
+router.get('/', async (req, res) => {
+    const users = await User.find()//get data from database
+    return res.send(users)
+})
+
+router.get('/:id', async (req, res) => {
+    // const user = await User.findOne({ _id: req.params.id})//get data from database
+    //or
+    const user = await User.findById(req.params.id)//get data from database
+    return res.send(user)
+})
+
+router.put('/:id', async (req, res) => {
 
 })
 
-router.delete('/', (req, res) => {
-
+router.delete('/:id', async (req, res) => {
+    // await User.deleteOne({ _id: req.params.id})
+    // res.status(204).send()
+    //or
+    const user = User.findById(req.params.id)
+    if(!user){//because id maybe be null
+        throw new Error('user not found')
+    }
+    user.delete()
+    res.status(204).send()
 })
 
 router.patch('/', (req, res) => {
