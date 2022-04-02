@@ -1,71 +1,35 @@
-import express from 'express';
-const router = express.Router()
+import express, { response } from "express";
+import user from "../modeuls/user.js";
+const router = express.Router();
+import User from "../modeuls/user.js";
 
-const users = [
-    {
-        id: 1,
-        name: 'John',
-        profile: {
-            address1: 'address 1',
-            address2: 'address 2'
-        }
-    },
-    {
-        id: 2,
-        name: 'Doe',
-        profile: {
-            address1: 'address 3',
-            address2: 'address 4'
-        }
-    },
-    {
-        id: 3,
-        name: 'mark',
-        profile: {
-            address1: 'address 5',
-            address2: 'address 6'
-        }
-    }
-]
-const authentication = (req, res, next) => {
-    // validation
-    if (req.isAuthenticated) {
-        next()
-    } else {
-        throw new Error('not authenticated')
-    }
-}
-const autheriztion = (req, res, next) => {
-    // validation
-    if (req.isAuthorized) {
-        next()
-    } else {
-        throw new Error('not authorized')
-    }
-    next()
-}
-const handler = (req, res) => {
-    console.log("processing the request")
-    users.push(req.body)
-    res.send(req.body)
-}
+router.post("/", async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.create({
+    email: email, //or can put email bec same name
+    password: password,
+  });
+  res.send(user);
+});
 
-router.post('/', authentication, autheriztion, handler)
+router.get("/", async (req, res) => {
+  const users = await User.find();
+  return res.send(users);
+});
 
-router.get('/', (req, res) => {
-    res.send("GET request")
-})
+router.get("/:id", async (req, res) => {
+  const users = await User.findOne({ _id: req.params.id }); // or can write user,findbyid(req.params.id)
+  return res.send(users);
+});
 
-router.put('/', (req, res) => {
+router.put("/", (req, res) => {});
 
-})
+router.delete("/",  (req, res) => {
 
-router.delete('/', (req, res) => {
+ user.findOne({_id: req.params.id})
+res.status(204).send()
+});
 
-})
+router.patch("/", (req, res) => {});
 
-router.patch('/', (req, res) => {
-
-})
-
-export default router
+export default router;
