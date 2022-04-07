@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const schemaUser = new mongoose.Schema({
+const schemaPost = new mongoose.Schema({
   desc: String,
   userId: { type: String, required: true },
   fullName: String,
@@ -8,4 +8,4 @@ const schemaUser = new mongoose.Schema({
   likes: Number,
 });
 
-export default mongoose.model("Post", schemaUser);
+export default mongoose.model("Post", schemaPost);

@@ -1,6 +1,7 @@
 import express from "express";
 const router = express.Router();
 import createUserValidator from "./validators/createUserValidator.js";
+import validateLikes from "./validators/createLikeValidator.js";
 import * as controller from "./controller.js";
 import authenticationMiddleware from "../../middlewares/authentication.js";
 
@@ -17,8 +18,8 @@ router.use(authenticationMiddleware);
 
 router.post("/addPost", controller.addPost);
 router.post("/posts/:id", controller.addComment);
-router.post("/posts/like/:id", controller.addPostLike);
-router.post("/posts/comment/like/:id", controller.addCommentLike);
+router.post("/posts/like/:id",validateLikes, controller.addPostLike);
+router.post("/posts/comment/like/:id",validateLikes, controller.addCommentLike);
 
 router.put("/:id", createUserValidator, controller.update);
 
