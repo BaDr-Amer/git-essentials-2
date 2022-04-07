@@ -1,4 +1,6 @@
 import express from 'express';
+import User from '../models/User.js'
+
 const router = express.Router()
 
 const users = [
@@ -50,18 +52,31 @@ const handler = (req, res) => {
     res.send(req.body)
 }
 
-router.post('/', authentication, autheriztion, handler)
+router.post('/',(req,res)=>{
+const {email , password } = req.body
+const user = await User.create({email,password}) // create  return a promise so we use await 
+res.send(user)
+})
 
 router.get('/', (req, res) => {
-    res.send("GET request")
+    const users = await User.find()
+   return res.send(users)
+
+})
+
+router.get('/:id', (req, res) => {
+    const users = await User.findOne({_id:req.params.id})
+   return res.send(users)
+
 })
 
 router.put('/', (req, res) => {
 
 })
 
-router.delete('/', (req, res) => {
-
+router.delete('/:id', async(req, res) => {
+await User.deleteOne({_id:req.params.id})
+res.status(204).send()
 })
 
 router.patch('/', (req, res) => {
