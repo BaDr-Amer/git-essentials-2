@@ -1,5 +1,5 @@
 import express from "express";
-import userRouter from "./modules/user/routes.js"
+import userRouter from "./modules/routes.js"
 import mongoose from "mongoose"
 
 async function connect() {

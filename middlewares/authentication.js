@@ -1,14 +1,15 @@
 import jwt from 'jsonwebtoken'
 import fs from 'fs'
 import path from 'path'
-
+import mongoose from 'mongoose'
 const validateToken = token => {
     const __dirname = path.resolve()
     const secret = fs.readFileSync(__dirname + '/modules/user/privateKey')
     return jwt.verify(token, secret, { algorithms: ['RS256'] })
+    jwt.decode
 }
 
-export default async (req, res, next) => {
+export default  async (req, res, next) => {
     const auth_header = req.headers['authorization']
     const token = auth_header && auth_header.split(' ')?.[1]
     if (!token) return res.status(401).json({
@@ -17,6 +18,7 @@ export default async (req, res, next) => {
     try {
         const payload = validateToken(token)
         if (payload) {
+            req.user_id = payload._id
             return next()
         }
     } catch (e) {

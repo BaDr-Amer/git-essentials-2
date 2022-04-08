@@ -1,4 +1,5 @@
 import User from '../../models/User.js'
+import Post from '../../models/Post.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import fs from 'fs'
@@ -24,4 +25,10 @@ export const login = async ({ email, password }) => {
 
 export const findByEmail = async email => {
     return await User.findOne({ email })
+}
+
+
+export const findByPostId = async postId => {
+return await Post.findById({postId})
+
 }
