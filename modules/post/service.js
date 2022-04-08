@@ -12,7 +12,7 @@ export const createPost= async ({content, user_id }) => {
     }
 
 export const isLiking = async ({post_id ,user_id}) => {
-return await Like.updateOne({post_id : post_id} ,{usersLiked : {$push :[ { user_id: user_id }] }})
+return await Like.updateOne({post_id : post_id} ,{$push : {usersLiked : [ { user_id: user_id }] }})
    
 }
 export const createLikeDoc =async post_id => {

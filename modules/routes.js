@@ -14,7 +14,7 @@ router.use(Middleware)
 router.post('/post', postController.post)
 
 
-router.patch('/:postIDforlike', checkIfLiked ,postController.likePost)
+router.patch('/:postIDforlike',checkIfLiked,postController.likePost)
 
 //router.get('/:id', controller.findById)
 
