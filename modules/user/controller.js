@@ -17,6 +17,10 @@ export const login = async (req, res) => {
     }
 }
 
+
+ 
+
+
 export const find = async (req, res) => {
     const users = await User.find()
     return res.send(users)
