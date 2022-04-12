@@ -16,9 +16,14 @@ export const remove = async ({ post_id, user_id }) => {
   return await Post.deleteOne({ post_id, user_id });
 };
 
-export const find = async () => {
-  return await Post.find().populate(["user_id", "post_id"]);
-};
+export const find = async (query) => {
+    const { offset = 0, limit = 10 } = query
+    const options = {
+        offset,
+        limit
+    }
+    return await Post.paginate({}, options)//.populate(['user_id', 'post_id'])
+}
 
 export const findContentsByTheSameUser = async () => {
   const post = await Post.findOne({ user_id: { $exists: true } });
