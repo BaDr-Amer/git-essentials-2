@@ -2,7 +2,8 @@ import mongoose from 'mongoose'
 
 const schemaUser = new mongoose.Schema({
     email: { type: String, required: true },
-    password: { type: String, required: true },
+    password: { type: String, required: true }, 
+    
     firstName: String,
     middleName: String,
     lastName: String,
@@ -22,4 +23,5 @@ schemaUser.post('save', function (doc, next) {
     next()
 })
 
-export default mongoose.model('User', schemaUser)
+
+export default mongoose.model('task_Social_networking_sit_post', schemaUser)

@@ -9,19 +9,22 @@ export const create = async ({ email, password, firstName, lastName }) => {
 }
 
 export const login = async ({ email, password }) => {
+   
     const user = await findByEmail(email)
+    console.log(!user)
     if (!user) return Promise.reject('incorrect email or password')
-
+   
     const passwordMatch = await bcrypt.compare(password, user.password)
     if (!passwordMatch) return Promise.reject('incorrect email or password')
+   
     const token = jwt.sign({
         _id: user._id,
         email: user.email
     }, fs.readFileSync('./privateKey'), { algorithm: 'RS256' });
-
+   
     return token
 }
 
 export const findByEmail = async email => {
-    return await User.findOne({ email })
+   return await User.findOne({ email })
 }

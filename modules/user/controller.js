@@ -8,10 +8,11 @@ export const create = async (req, res) => {
 }
 
 export const login = async (req, res) => {
+
     const { email, password } = req.body
     try {
-        const token = await service.login({ email, password })
-        res.send({ token })
+        const token = await service.login({ email, password }) 
+        res.send({ token }) 
     } catch (error) {
         res.send(error.message)
     }
