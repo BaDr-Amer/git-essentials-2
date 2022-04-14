@@ -6,7 +6,9 @@ const schemaUser = new mongoose.Schema({
     firstName: String,
     middleName: String,
     lastName: String,
-    fullName: String
+    fullName: String,
+    date_of_birth : { type: Date ,required: true}
+
 })
 
 schemaUser.pre('save', function (next) {
@@ -23,3 +25,4 @@ schemaUser.post('save', function (doc, next) {
 })
 
 export default mongoose.model('User', schemaUser)
+// date of birth

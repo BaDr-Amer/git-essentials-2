@@ -3,8 +3,8 @@ import * as service from './service.js'
 import mongoose from 'mongoose'
 
 export const create = async (req, res) => {
-    const { email, password, firstName, lastName } = req.body
-    const user = await service.create({ email, password, firstName, lastName })
+    const { email, password, firstName, lastName ,date_of_birth} = req.body
+    const user = await service.create({ email, password, firstName, lastName ,date_of_birth})
     res.send(user)
 }
 
@@ -97,4 +97,20 @@ export const remove = async (req, res) => {
     }
     user.delete()
     res.status(204).send()
+}
+
+export const findUsersAge = async (req, res) => {
+    const result = await service.findUsersAge()
+    res.send(result)
+}
+
+export const findUserAgeBetween20To40= async (req, res)=>{
+
+    const result = await service.findUserAgeBetween20To40()
+    res.send(result)
+}
+export const percentBetween20To40 = async (req, res) => {
+    const result = await service.percentBetween20To40()
+
+res.send(result)
 }
