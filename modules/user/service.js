@@ -92,73 +92,75 @@ export const findUserAgeBetween20To40 = async () => {
 };
 
 export const percentBetween20To40 = async () => {
- const options = [
+  const options = [
     {
-      '$addFields': {
-        'age': {
-          '$dateDiff': {
-            'startDate': '$date_of_birth', 
-            'endDate': '$$NOW', 
-            'unit': 'year'
-          }
-        }
-      }
-    }, {
-      '$facet': {
-        'bucket': [
+      $addFields: {
+        age: {
+          $dateDiff: {
+            startDate: "$date_of_birth",
+            endDate: "$$NOW",
+            unit: "year",
+          },
+        },
+      },
+    },
+    {
+      $facet: {
+        bucket: [
           {
-            '$bucket': {
-              'groupBy': '$age', 
-              'boundaries': [
-                0, 20, 30, 40
-              ], 
-              'default': 'Other', 
-              'output': {
-                'count': {
-                  '$sum': 1
-                }
-              }
-            }
-          }
-        ], 
-        'count': [
+            $bucket: {
+              groupBy: "$age",
+              boundaries: [0, 20, 30, 40],
+              default: "Other",
+              output: {
+                count: {
+                  $sum: 1,
+                },
+              },
+            },
+          },
+        ],
+        count: [
           {
-            '$group': {
-              '_id': null, 
-              'size': {
-                '$count': {}
-              }
-            }
-          }
-        ]
-      }
-    }, {
-      '$project': {
-        'count': {
-          '_id': 0
-        }
-      }
-    }, {
-      '$unwind': {
-        'path': '$bucket'
-      }
-    }, {
-      '$unwind': {
-        'path': '$count'
-      }
-    }, {
-      '$addFields': {
-        'percentage': {
-          '$multiply': [
+            $group: {
+              _id: null,
+              size: {
+                $count: {},
+              },
+            },
+          },
+        ],
+      },
+    },
+    {
+      $project: {
+        count: {
+          _id: 0,
+        },
+      },
+    },
+    {
+      $unwind: {
+        path: "$bucket",
+      },
+    },
+    {
+      $unwind: {
+        path: "$count",
+      },
+    },
+    {
+      $addFields: {
+        percentage: {
+          $multiply: [
             {
-              '$divide': [
-                '$bucket.count', '$count.size'
-              ]
-            }, 100
-          ]
-        }
-      }
-    }
-  ]
+              $divide: ["$bucket.count", "$count.size"],
+            },
+            100,
+          ],
+        },
+      },
+    },
+  ];
   return await User.aggregate(options);
 };
