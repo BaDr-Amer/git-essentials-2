@@ -17,7 +17,7 @@ export const remove = async ({ post_id, user_id }) => {
 }
 
 export const find = async (query) => {
-    const { offset = 0, limit = 10 } = query
+    const { offset = 0, limit =10 } = query
     const options = {
         offset,
         limit

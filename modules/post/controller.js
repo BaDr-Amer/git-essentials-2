@@ -7,6 +7,7 @@ export const create = async (req, res) => {
 }
 
 export const find = async (req, res) => {
+    
     const posts = await service.find(req.query)
     return res.send(posts)
 }
@@ -29,6 +30,7 @@ export const findContentsByTheSameUser = async (req, res) => {
 }
 
 export const like = async (req, res) => {
+    console.log(req.params)
     const { id } = req.params
     const like = await service.like({ post_id: id, user_id: req.userId })
     res.status(201).send(like)

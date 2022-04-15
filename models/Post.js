@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import paginate from 'mongoose-paginate-v2'
-
+import mongoose_delete  from'mongoose-delete'; 
+ import mongooseAggregatePaginate from'mongoose-aggregate-paginate';
 const contentSchema = new mongoose.Schema({
     content: { type: String, required: true },
     user_id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
@@ -10,7 +11,8 @@ const contentSchema = new mongoose.Schema({
 })
 
 contentSchema.plugin(paginate)
-
+contentSchema.plugin(mongoose_delete);
+//contentSchema.plugin(mongooseAggregatePaginate)
 contentSchema.static.findByUser = async function (user_id) {
     /**
      * this keyword here refers to model name => Content.

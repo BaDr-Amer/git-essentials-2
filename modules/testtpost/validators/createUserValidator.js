@@ -1,4 +1,4 @@
-import { body ,param } from 'express-validator'
+import { body } from 'express-validator'
 import validate from '../../../core/errorMiddleware.js'
 import { findByEmail } from '../service.js'
 const rules = [
@@ -18,17 +18,7 @@ const rules = [
         }),
     body('password')
         .isStrongPassword({ minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1 })
-        .withMessage('password should be at least 8 characters, 1 lowercase, 1 uppercase, 1 symbols, 1 numbers'),
-
-       body("dateOfBirth").isDate(body.daty, new Date()).withMessage("sss").custom(async (da)=>{
-        console.log(new Date().getDate())
-if(da>new Date().getFullYear)
-
-return "eeee"
-       })
-       
-    
-           
+        .withMessage('password should be at least 8 characters, 1 lowercase, 1 uppercase, 1 symbols, 1 numbers')
 ]
 
 export default validate(rules)
