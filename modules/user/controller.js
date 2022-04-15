@@ -112,17 +112,6 @@ export const age = async (req, res) => {
   //return res.send( User.aggregatePaginate(result,options))
 };
 
-let lesThanMonth = (likeDate) => {
-  console.log(likeDate);
-  var today = likeDate;
-  if (new Date().getMonth() - today.getMonth() > 1) {
-    return false;
-  } else if (new Date().getDay() + today.getDay() > 30) {
-    return false;
-  }
-  return true;
-};
-
 export const likeposavg = async (req, res) => {
   var today = new Date();
   let arrayOfID = [];
@@ -222,24 +211,16 @@ export const ageGroop = async (req, res) => {
       },
     },
     {
-      $match: { ages: { $gte: 20, $lt: 30 } },
+      $match: { ages: { $gte: firstNum, $lt: sacandNum } },
     },
     {
       $count: "count",
     },
   ]);
 
-  /*  var query = User.find();
- var a= query.count((count,err)=>{
-  if (err) console.log(err+"dd")
-  else res.send(result/count) 
 
-})*/
-  var couunts;
-  User.count({}, (err, count) => {
-    res.send(result[0].count / count);
-  });
-
+  var userCount = User.countDocuments();
+  console.log(userCount);
   //res.send(result/count)
 };
 
