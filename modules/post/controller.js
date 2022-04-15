@@ -1,35 +1,48 @@
-import * as service from './service.js'
+import * as service from "./service.js";
 
 export const create = async (req, res) => {
-    const { content, type, post_id } = req.body
-    const post = await service.create({ content, type, post_id, user_id: req.userId })
-    res.status(201).send(post)
-}
+  const { content, type, post_id } = req.body;
+  const post = await service.create({
+    content,
+    type,
+    post_id,
+    user_id: req.userId,
+  });
+  res.status(201).send(post);
+};
 
 export const find = async (req, res) => {
-    const posts = await service.find(req.query)
-    return res.send(posts)
-}
+  const posts = await service.find(req.query);
+  return res.send(posts);
+};
+export const findLikes = async (req, res) => {
+  //Get users with age between 20 - 30 that didn’t like any post during the last month
+  const posts = await service.findLikes();
+  return res.send(posts);
+};
 
 export const findById = async (req, res) => {
-    const post = await service.findById(req.params.id)
-    if (!post) throw new Error(`No post found for ${req.params.id}`)
-    return res.send(post)
-}
+  const post = await service.findById(req.params.id);
+  if (!post) throw new Error(`No post found for ${req.params.id}`);
+  return res.send(post);
+};
 
 export const remove = async (req, res) => {
-    const result = await service.remove({ post_id: req.params.id, user_id: req.userId })
-    // if (!result.deletedCount) throw new Error(`No post found for ${req.params.id}`)
-    return res.status(204).send(result)
-}
+  const result = await service.remove({
+    post_id: req.params.id,
+    user_id: req.userId,
+  });
+  // if (!result.deletedCount) throw new Error(`No post found for ${req.params.id}`)
+  return res.status(204).send(result);
+};
 
 export const findContentsByTheSameUser = async (req, res) => {
-    const postsByTheSameUser = await service.findContentsByTheSameUser()
-    return res.send(postsByTheSameUser)
-}
+  const postsByTheSameUser = await service.findContentsByTheSameUser();
+  return res.send(postsByTheSameUser);
+};
 
 export const like = async (req, res) => {
-    const { id } = req.params
-    const like = await service.like({ post_id: id, user_id: req.userId })
-    res.status(201).send(like)
-}
+  const { id } = req.params;
+  const like = await service.like({ post_id: id, user_id: req.userId });
+  res.status(201).send(like);
+};
