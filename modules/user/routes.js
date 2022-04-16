@@ -10,9 +10,15 @@ router.post('/login', controller.login)
 
 router.get('/', controller.find)
 
+router.get('/usersAge', controller.getUsersAge)
+
+router.get('/usersAgeBetween20and30', controller.getUserBetween20and30)
+
 router.use(authenticationMiddleware)
 
 router.get('/likes', controller.findUserLikes)
+
+router.get('/age', controller.getUserAge)
 
 router.get('/:id', controller.findById)
 
