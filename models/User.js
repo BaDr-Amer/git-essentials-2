@@ -1,12 +1,14 @@
 import mongoose from 'mongoose'
 
+
 const schemaUser = new mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     firstName: String,
     middleName: String,
     lastName: String,
-    fullName: String
+    fullName: String,
+    birthday: { type: Date }
 })
 
 schemaUser.pre('save', function (next) {
@@ -22,4 +24,4 @@ schemaUser.post('save', function (doc, next) {
     next()
 })
 
-export default mongoose.model('User', schemaUser)
+export default mongoose.model('User', schemaUser, 'User')

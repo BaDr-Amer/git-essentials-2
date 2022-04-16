@@ -3,9 +3,9 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import fs from 'fs'
 
-export const create = async ({ email, password, firstName, lastName }) => {
+export const create = async ({ email, password, firstName, lastName, bDate }) => {
     const hash = await bcrypt.hash(password, 3)
-    return await User.create({ email, password: hash, firstName, lastName })
+    return await User.create({ email, password: hash, firstName, lastName, birthday: bDate })
 }
 
 export const login = async ({ email, password }) => {
