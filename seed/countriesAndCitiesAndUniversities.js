@@ -37,7 +37,7 @@ export default async () => {
       }
     }
     cityCheck = await City.insertMany(cityCheck,{session});
-    if (cityCheck) throw ApiError.badRequest("Error while adding cities");
+    if (!cityCheck) throw ApiError.badRequest("Error while adding cities");
 
 
     universityCheck = await University.insertMany(universityCheck,{session});
