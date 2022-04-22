@@ -36,12 +36,13 @@ export default async () => {
         universityCheck.push({ name: university.name, country_id: countryID });
       }
     }
-    if (!cityCheck) throw ApiError.badRequest("Error while adding cities");
     cityCheck = await City.insertMany(cityCheck);
-    if (!universityCheck)
-      throw ApiError.badRequest("Error while adding universities");
+    if (!cityCheck) throw ApiError.badRequest("Error while adding cities");
+
 
     universityCheck = await University.insertMany(universityCheck);
+    if (!universityCheck)
+      throw ApiError.badRequest("Error while adding universities");
     await session.commitTransaction();
     var endTime = performance.now();
     console.log(startTime - endTime);
