@@ -16,10 +16,12 @@
     "bcrypt": "^5.0.1",
     "express": "^4.17.3",
     "express-validator": "^6.14.0",
+    "json-aggregate": "^0.1.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.9",
     "mongoose-delete": "^0.5.4",
     "mongoose-paginate-v2": "^1.6.3",
+    "mongoose-unique-validator": "^3.0.0",
     "nodemon": "^2.0.15"
   }
 }
