@@ -20,7 +20,7 @@ export default async () => {
     countryCheck = await Country.insertMany(
       continent.map(({ name }) => {
         return { name };
-      })
+      }),{session}
     );
 
     if (!countryCheck)
@@ -36,11 +36,11 @@ export default async () => {
         universityCheck.push({ name: university.name, country_id: countryID });
       }
     }
-    cityCheck = await City.insertMany(cityCheck);
-    if (!cityCheck) throw ApiError.badRequest("Error while adding cities");
+    cityCheck = await City.insertMany(cityCheck,{session});
+    if (cityCheck) throw ApiError.badRequest("Error while adding cities");
 
 
-    universityCheck = await University.insertMany(universityCheck);
+    universityCheck = await University.insertMany(universityCheck,{session});
     if (!universityCheck)
       throw ApiError.badRequest("Error while adding universities");
     await session.commitTransaction();

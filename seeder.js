@@ -19,8 +19,8 @@ connect().then(async () => {
             console.log(fileName);
             await Seed.updateOne(
               { fileName },
-              { fileName, locked: false },
-              { upsert: true }
+              { fileName, locked: true },
+              { upsert: true,session } 
             );
             const seed = await import(
               url.pathToFileURL(path.join(__dirname, `/seed/${fileName}`))
@@ -29,17 +29,18 @@ connect().then(async () => {
             await Seed.updateOne(
               { fileName },
               { fileName, locked: false },
-              { upsert: true }
+              { upsert: true,session }
             );
           }
         }
       });
     }
     console.log("Done!");
-    await session.endSession();
-    exit(0);
   } catch (error) {
-console.log(error)  }
+console.log(error)  }finally{
+  await session.endSession();
+  exit(0);
+}
 });
 
 async function isExistAndNotLocked(fileName) {
