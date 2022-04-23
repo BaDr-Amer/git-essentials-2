@@ -22,7 +22,7 @@ export default async () => {
         return { name };
       }),{session}
     );
-
+      
     if (!countryCheck)
       throw ApiError.badRequest("Error while adding countries");
 
@@ -36,6 +36,7 @@ export default async () => {
         universityCheck.push({ name: university.name, country_id: countryID });
       }
     }
+  
     cityCheck = await City.insertMany(cityCheck,{session});
     if (!cityCheck) throw ApiError.badRequest("Error while adding cities");
 
