@@ -15,7 +15,7 @@ connect().then(async () => {
     for await (let fileName of files) {
       await session.withTransaction(async () => {
         if (fileName.endsWith(".js")) {
-          if ((await isExistAndNotLocked(fileName)) == false) {
+          if ((await canSeed(fileName)) == false) {
             console.log(fileName);
             await Seed.updateOne(
               { fileName },
@@ -43,8 +43,9 @@ console.log(error)  }finally{
 }
 });
 
-async function isExistAndNotLocked(fileName) {
+async function canSeed(fileName) {
   const d = await Seed.find({ fileName });
-  if (d.length == 0) return false;
-  else return d[0].locked;
+  if (d.length==0 ) return true;
+  else 
+  return false
 }

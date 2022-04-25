@@ -130,7 +130,7 @@ export const like2 = async ({ post_id, user_id }) => {
   session.startTransaction()
   try {
     like = await Like.create({ post_id, user_id }, { session })
-    const result = await Post.updateOne({ _id: post_id }, { $inc: { likes: 1 } }, { session })
+    const result = await Post.updateOne({ _id: post_id }, { $inc: { likes: 1 } },{session})
     if (!result.updatedDocuments) {
       // abort
     }

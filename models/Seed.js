@@ -2,8 +2,8 @@ import mongoose from 'mongoose'
 
 const seedSchema = new mongoose.Schema({
 fileName : {type : 'string', required :true },
-locked : false
-})
+
+}).index({fileName :1 }, {unique :1 })
 
 
 export default mongoose.model('seedZ',seedSchema)
