@@ -11,11 +11,20 @@ const contentSchema = new mongoose.Schema({
     timestamps: true
 })
 
+//ESR rule
+// Content.find({}).sort({createdAt: -1})
+// contentSchema.index({ user_id: 1, createdAt: -1, likes: 1 })
+
 contentSchema.plugin(paginate)
 contentSchema.plugin(mongoose_delete, { deletedAt: true, deletedBy: true })
 contentSchema.plugin(mongoose_delete, { overrideMethods: ['find', 'count', 'countDocuments', 'findOne', 'findOneAndUpdate', 'update'] })
 
-
+// S
+// SR
+// ESR
+// E
+// ES
+// ESR
 contentSchema.static.findByUser = async function (user_id) {
     /**
      * this keyword here refers to model name => Content.

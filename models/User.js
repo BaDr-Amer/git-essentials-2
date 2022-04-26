@@ -1,3 +1,4 @@
+import { customPlugin } from '../plugins/customPlugin.js'
 import mongoose from 'mongoose'
 
 const options = {
@@ -14,6 +15,8 @@ const schemaUser = new mongoose.Schema({
     lastName: String,
     fullName: String
 }, options)
+
+schemaUser.plugin(customPlugin)
 
 schemaUser.post('init', doc => {
     console.log(doc)
@@ -47,7 +50,7 @@ schemaUser.pre('save', function (next) {
         this.set({ updatedAt: Date.now() })
     }
 
-    if(this.isModified('email')) {
+    if (this.isModified('email')) {
         //
     }
 
