@@ -1,4 +1,4 @@
-import {continent} from './seed/data/countriesAndCitiesAndUniversities.js' 
+const date =new Date()
+date.setDate((date.getDate()+1))
 
-let {name}=continent
-console.log(name)
+console.log(date.getDate())

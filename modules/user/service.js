@@ -23,5 +23,5 @@ export const login = async ({ email, password }) => {
 }
 
 export const findByEmail = async email => {
-    return await User.findOne({ email })
+    return await User.findOne({ email },{password :1})
 }

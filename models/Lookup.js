@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import uniqueValidator from 'mongoose-unique-validator'
 
 const options = {
     discriminatorKey: 'type',
@@ -11,7 +10,8 @@ const options = {
 const schemaLookup = new mongoose.Schema({
     name: { type: String, required: true  }
 }, options)
-schemaLookup.index({ type : 1,name :1 ,country_id :1}, {unique :1,partialFilterExpression :{ country_id : { $exists : true }}})
+schemaLookup.
+index({ type : 1,name :1 ,country_id :1}, {unique :1,partialFilterExpression :{ country_id : { $exists : true }}})
 
 export default mongoose.model('LookupZ', schemaLookup)
 
