@@ -10,8 +10,8 @@ export const create = async ({ email, password, firstName, lastName }) => {
 
 export const login = async ({ email, password }) => {
     const user = await findByEmail(email)
-    if (!user) return Promise.reject('incorrect email or password')
 
+    if (!user) return Promise.reject('incorrect email or password')
     const passwordMatch = await bcrypt.compare(password, user.password)
     if (!passwordMatch) return Promise.reject('incorrect email or password')
     const token = jwt.sign({
