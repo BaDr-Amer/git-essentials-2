@@ -70,7 +70,7 @@ export const deleteStory = async ({ storyID, userId }) => {
     throw ApiError.badRequest("not autharized");
   await session.withTransaction(async () => {
     Storydeletion = await Story.delete({ _id: storyID });
-    if (!Storydeletion) throw ApiError.badRequest("Story not exists");
+    if (Storydeletion.matchedCount==0) throw ApiError.badRequest("Story not exists");
     viewsDeletion = await StoryViewer.delete({ story_id: storyID });
   });
   await session.endSession();
