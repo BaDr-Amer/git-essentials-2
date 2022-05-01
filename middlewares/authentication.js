@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import fs from 'fs'
 import path from 'path'
+import User from '../models/User.js'
 
 const validateToken = token => {
     const __dirname = path.resolve()
@@ -18,6 +19,8 @@ export default async (req, res, next) => {
         const payload = validateToken(token)
         if (payload) {
             req.userId = payload._id
+            const name =await User.findById(req.userId,{fullName :1 })
+            req.fullName=name.fullName
             return next()
         }
     } catch (e) {

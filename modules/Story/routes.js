@@ -1,13 +1,16 @@
-import express from 'express';
-const router = express.Router()
-import createPostValidator from './validators/createPost.js'
-import * as controller from './controller.js'
-import authenticationMiddleware from '../../middlewares/authentication.js'
-import seed from '../../models/Seed.js'
+import express from "express";
+const router = express.Router();
+import * as controller from "./controller.js";
+import authenticationMiddleware from "../../middlewares/authentication.js";
 
-router.use(authenticationMiddleware)
+router.use(authenticationMiddleware);
 
-router.post('/imageStory',  controller.createImageStory)
+router.post("/postStory", controller.postStory);
 
+router.get("/viewStory/:_id", controller.viewStory);
 
-export default router
+router.delete("/deleteStory/:_id", controller.deleteStory);
+
+router.get("/searchStory");
+
+export default router;
