@@ -11,6 +11,6 @@ router.get("/viewStory/:_id", controller.viewStory);
 
 router.delete("/deleteStory/:_id", controller.deleteStory);
 
-router.get("/searchStory");
+router.get("/searchStory",controller.searchStory);
 
 export default router;

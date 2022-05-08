@@ -80,3 +80,9 @@ export const deleteStory = async ({ storyID, userId }) => {
 const isAutharized = async (storyID, userId) => {
   return await Story.findOne({ _id: storyID, user_id: userId });
 };
+
+export const searchStory = async ({search}) => {
+return await Story.paginate({ $text: { $search: search } })
+
+
+}

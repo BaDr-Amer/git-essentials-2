@@ -31,3 +31,10 @@ export const deleteStory = async (req, res) => {
     .deleteStory({ storyID, userId })
     .then((Result) => res.send(Result));
 };
+
+export const  searchStory= async (req, res)=>{
+  const {search}=req.body
+  const find =await service.searchStory({search})
+  res.send(find)
+
+}
