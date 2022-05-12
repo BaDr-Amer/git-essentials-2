@@ -1,18 +1,19 @@
 import express from "express";
-import userRouter from "./modules/user/routes.js"
-import postRouter from "./modules/post/routes.js"
-import adminRouter from "./modules/admin/routes.js"
+
 import { ApiError } from "./errors/ApiError.js"
 import connect from './core/db.js'
+import booksRouter from "./modules/books/routes.js"
+import authorsRouter from "./modules/authors/routes.js"
 
 connect().then(() => {
     const app = express()
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
 
-    app.use('/users', userRouter)
-    app.use('/posts', postRouter)
-    app.use('/admins', adminRouter)
+  
+   
+    app.use('/books', booksRouter)
+    app.use('/authors', authorsRouter)
 
     app.use((err, req, res, next) => {
         if (err instanceof ApiError) {
