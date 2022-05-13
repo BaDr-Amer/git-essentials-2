@@ -7,13 +7,13 @@ const rules = [
             checkFalsy: true,
             checkNull: true
         }).withMessage('First Name is required').bail()
-        .isLength({ min: 2, max: 30 }),
-    body('author_image')
-        .optional({
-            checkFalsy: true,
-            checkNull: true
-        })
-        .isURL({}).withMessage('image should be of a valid URL')
+        .isLength({ min: 2, max: 30 })
+    // body('author_image')
+    //     .optional({
+    //         checkFalsy: true,
+    //         checkNull: true
+    //     })
+    //     .isURL({}).withMessage('image should be of a valid URL')
 ]
 
 export default validate(rules)
