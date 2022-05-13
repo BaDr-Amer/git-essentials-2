@@ -33,7 +33,7 @@ export const availableAuthor = async (author_id) => {
 export const searchAuthor = async ({ name, skip }) => {
     let filter = {}
     if (name) {
-        filter = { full_name: { $regex: name, $options: 'i' } }
+        filter = { fullName: { $regex: name, $options: 'i' } }
     }
     const authors = await Author.find(filter)
         .skip(skip)
