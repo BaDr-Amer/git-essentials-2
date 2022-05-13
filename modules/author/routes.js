@@ -7,7 +7,7 @@ import * as controller from './controller.js'
 router.get('/', controller.find)
 router.get('/:id', paramIdValidator, controller.viewAuth)
 router.post('/', createAuthorValidator, controller.create)
-router.put('/', paramIdValidator, createAuthorValidator, controller.update)
+router.put('/:id', paramIdValidator, createAuthorValidator, controller.update)
 router.post('/:id/view', controller.viewStory)
 
 

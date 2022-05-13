@@ -4,7 +4,7 @@ import aggregatePaginate from "mongoose-aggregate-paginate-v2"
 const bookSchema = new mongoose.Schema({
     name: { type: String, required: true },
     ISBN: { type: String, required: true, unique: true },
-    book_cover_image: { type: String, required: true },
+    book_cover_image: { type: String },
     author: {
         _id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Author' },
         fullName: String
