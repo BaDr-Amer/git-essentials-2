@@ -18,6 +18,10 @@ const rules = [
             return true
         }),
     body('book_cover_image')
+        .optional({
+            checkFalsy: true,
+            checkNull: true
+        })
         .isURL({}).withMessage('image should be of a valid URL.'),
     body('ISBN')
         .isISBN().withMessage('isISBN should be of a valid ISBN (version 10 or 13).')
