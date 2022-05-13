@@ -21,7 +21,7 @@ export const dynamicFind = async (req, res, next) => {
 
 const filterQuery = (reqQuery) => {
   let query = {$or : []};
-  if (reqQuery.name) query.$or.push({ $text: { $search: reqQuery.name } }) ;
+  if (reqQuery.name) query.$or.push({ $text: { $search: ("\""+reqQuery.name+"\"") } }) ;
   if (reqQuery.ISBN) query.$or.push ({ISBN : reqQuery.ISBN}) ;
   if (reqQuery.author_id) query.$or.push ({ author_id :reqQuery.author_id});
   return query;

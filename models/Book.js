@@ -6,4 +6,6 @@ const schemaBook = new mongoose.Schema({
     book_cover_image : {type : String  ,required :true}
 },{timestamps :true})
 
+schemaBook.index({ name: 'text' })
+
 export default mongoose.model('BookZ', schemaBook)
