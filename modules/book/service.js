@@ -29,7 +29,7 @@ export const update = async ({ id, name, ISBN, author_id, book_cover_image }) =>
 export const searchBook = async ({ name, ISBN, skip }) => {
     let conds = []
     if (name) conds.push({
-        $match: { name: { $regex: regex, $options: 'i' } }
+        $match: { name: { $regex: name, $options: 'i' } }
     })
     if (ISBN) conds.push({
         $match: { 'ISBN': ISBN }
