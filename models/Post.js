@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import paginate from 'mongoose-paginate-v2'
 import mongoose_delete from 'mongoose-delete'
+import likeSchema from './Like.js'
 
 const contentSchema = new mongoose.Schema({
     content: { type: String, required: true },
@@ -15,6 +16,11 @@ contentSchema.plugin(paginate)
 contentSchema.plugin(mongoose_delete, { deletedAt: true, deletedBy: true })
 contentSchema.plugin(mongoose_delete, { overrideMethods: ['find', 'count', 'countDocuments', 'findOne', 'findOneAndUpdate', 'update'] })
 
+
+contentSchema.pre('remove', function (next) {
+    likeSchema.remove({ post_id: this._id }).exec();
+    next();
+});
 
 contentSchema.static.findByUser = async function (user_id) {
     /**
@@ -31,5 +37,7 @@ contentSchema.methods.findContentsByTheSameUser = async function () {
      */
     return await mongoose.model('Content').find({ user_id: this.user_id })
 }
+
+
 
 export default mongoose.model('Content', contentSchema)

@@ -8,7 +8,7 @@ const options = {
 
 const schemaUser = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true, select: false },
+    password: { type: String, required: true },
     firstName: String,
     middleName: String,
     lastName: String,

@@ -115,10 +115,10 @@ export const like = async ({ post_id, user_id }) => {
   let like
   await session.withTransaction(async () => {
     like = await Like.create([{ post_id, user_id }], { session })
-    if (like) {
-      throw ApiError.badRequest('error adding like')
-    }
-    await Post.updateOne({ _id: "post_id" }, { $inc: { likes: 1 } }, { session })
+    // if (like) {
+    //   throw ApiError.badRequest('error adding like')
+    // }
+    await Post.updateOne({ _id: post_id }, { $inc: { likes: 1 } }, { session })
   })
   session.endSession()
   return like
