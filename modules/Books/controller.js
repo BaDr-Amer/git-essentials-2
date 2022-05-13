@@ -20,9 +20,9 @@ export const dynamicFind = async (req, res, next) => {
 };
 
 const filterQuery = (reqQuery) => {
-  let query = {};
-  if (reqQuery.name) query.name = reqQuery.name;
-  if (reqQuery.ISBN) query.ISBN = reqQuery.ISBN;
-  if (reqQuery.author_id) query.author_id = reqQuery.author_id;
+  let query = {$or : []};
+  if (reqQuery.name) query.$or.push({ $text: { $search: reqQuery.name } }) ;
+  if (reqQuery.ISBN) query.$or.push ({ISBN : reqQuery.ISBN}) ;
+  if (reqQuery.author_id) query.$or.push ({ author_id :reqQuery.author_id});
   return query;
 };
