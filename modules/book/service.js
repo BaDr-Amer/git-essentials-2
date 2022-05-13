@@ -26,10 +26,10 @@ export const update = async ({ id, name, ISBN, author_id, book_cover_image }) =>
     return await book.save()
 }
 
-export const searchBook = async ({ text, ISBN, skip }) => {
+export const searchBook = async ({ name, ISBN, skip }) => {
     let conds = []
-    if (text) conds.push({
-        $match: { $text: { $search: text } }
+    if (name) conds.push({
+        $match: { name: { $regex: regex, $options: 'i' } }
     })
     if (ISBN) conds.push({
         $match: { 'ISBN': ISBN }

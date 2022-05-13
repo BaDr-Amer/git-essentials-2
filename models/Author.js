@@ -14,7 +14,6 @@ const authorSchema = new mongoose.Schema({
 
 authorSchema.index({ fullName: 'text' })
 
-
 authorSchema.pre('save', function(next) {
     let fullName = [this.first_name, this.last_name]
         .filter(Boolean)
