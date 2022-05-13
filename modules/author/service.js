@@ -31,7 +31,11 @@ export const availableAuthor = async (author_id) => {
 
 
 export const searchAuthor = async ({ name, skip }) => {
-    const authors = await Author.find({ $text: { $search: name } })
+    let filter = {}
+    if (name) {
+        filter = { $text: { $search: name } }
+    }
+    const authors = await Author.find(filter)
         .skip(skip)
         .limit(10)
     return authors
