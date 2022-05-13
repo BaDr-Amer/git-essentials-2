@@ -1,6 +1,7 @@
 import express from "express";
 import bookRouter from "./modules/book/routes.js"
 import authorRouter from "./modules/author/routes.js"
+import fileRouter from "./modules/files/routes.js"
 
 import { ApiError } from "./errors/ApiError.js"
 import connect from './core/db.js'
@@ -11,7 +12,7 @@ connect().then(() => {
     app.use(express.urlencoded({ extended: true }))
 
     app.use('/books', bookRouter)
-
+    app.use('/files', fileRouter)
     app.use('/authors', authorRouter)
 
     app.use((err, req, res, next) => {
