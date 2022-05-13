@@ -4,8 +4,19 @@ import { ApiError } from '../../errors/ApiError.js'
 
 export const create = async ({ first_name, last_name, author_image }) => {
     return await Author.create({ first_name, last_name, author_image })
-
 }
+
+export const update = async ({ id, first_name, last_name, author_image }) => {
+    let author = await Author.findById(id)
+    if (!author) {
+        throw ApiError.notFound('Author not Found')
+    }
+    author.first_name = first_name
+    author.last_name = last_name
+    author.author_image = author_image
+    return await author.save()
+}
+
 export const viewAuth = async (author_id) => {
     let author = await availableAuthor(author_id)
     if (!author) {

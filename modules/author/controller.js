@@ -6,6 +6,13 @@ export const create = async (req, res) => {
     res.status(201).send(author)
 }
 
+export const update = async (req, res) => {
+    const { first_name, last_name, author_image } = req.body
+    const { id } = req.params
+    const author = await service.update({ id, first_name, last_name, author_image })
+    res.status(200).send(author)
+}
+
 export const find = async (req, res) => {
     const { name, skip } = req.query
     const author = await service.searchAuthor({ name, skip })

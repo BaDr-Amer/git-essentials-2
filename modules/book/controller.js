@@ -6,6 +6,13 @@ export const create = async (req, res, next) => {
         .catch(next)
 }
 
+export const update = async (req, res, next) => {
+    const { name, ISBN, author_id, book_cover_image } = req.body
+    const { id } = req.params
+    service.update({ id, name, ISBN, author_id, book_cover_image }).then((result => res.status(200).send(result)))
+        .catch(next)
+}
+
 
 export const viewBook = async (req, res, next) => {
     const { id } = req.params

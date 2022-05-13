@@ -8,9 +8,7 @@ import * as controller from './controller.js'
 router.get('/', controller.find)
 
 router.get('/:id', paramIdValidator, controller.viewBook)
-
+router.put('/:id', paramIdValidator, createBookValidator, controller.update)
 router.post('/', createBookValidator, controller.create)
-
-
 
 export default router
