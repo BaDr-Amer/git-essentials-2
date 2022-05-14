@@ -2,6 +2,7 @@ import express from "express";
 import userRouter from "./modules/user/routes.js"
 import postRouter from "./modules/post/routes.js"
 import adminRouter from "./modules/admin/routes.js"
+import uploadRouter from './modules/files/routes.js'
 import { ApiError } from "./errors/ApiError.js"
 import connect from './core/db.js'
 
@@ -13,6 +14,7 @@ connect().then(() => {
     app.use('/users', userRouter)
     app.use('/posts', postRouter)
     app.use('/admins', adminRouter)
+    app.use('/upload',uploadRouter)
 
     app.use((err, req, res, next) => {
         if (err instanceof ApiError) {
