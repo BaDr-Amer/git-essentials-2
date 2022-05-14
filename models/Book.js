@@ -12,7 +12,7 @@ const bookSchema = new mongoose.Schema({
     timestamps: true
 })
 
-bookSchema.index({ bookName: "text", content: "text" });
+bookSchema.index({ bookName: "text" });
 bookSchema.plugin(aggregatePaginate)
 bookSchema.plugin(mongoose_delete, { deletedAt: true, deletedBy: true })
 bookSchema.plugin(mongoose_delete, { overrideMethods: ['find', 'count', 'countDocuments', 'findOne', 'findOneAndUpdate', 'update'] })
