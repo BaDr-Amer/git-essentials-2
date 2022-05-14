@@ -1,6 +1,6 @@
 import * as service from './service.js'
 
-export const create = async (req, res) => {
+export const create = async (req, res) => {//add next 
     const { bookName, ISBN, author_id, book_cover_image } = req.body
     const book = await service.create({ bookName, ISBN, author_id, book_cover_image })
     res.send(book)

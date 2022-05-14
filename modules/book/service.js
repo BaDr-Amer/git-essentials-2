@@ -20,7 +20,7 @@ export const create = async ({ bookName, ISBN, author_id, book_cover_image }) =>
   }
 }
 
-export const find = async ({ name, ISBN, author, page, limit }) => {
+export const find = async ({ name, ISBN, author, page = 1, limit = 10 }) => {
   const options = {
     page,
     limit
@@ -37,11 +37,9 @@ export const find = async ({ name, ISBN, author, page, limit }) => {
     pipeline.push({ $match: { 'author_id': author } })
   }
   if (pipeline.length) {
-    books = await Book.aggregate(pipeline)
-  } else {
-    books = await Book.find()
+    books = await Book.aggregate(pipeline)//just return aggregation
   }
 
-  return Book.aggregatePaginate(books, options)
+  return Book.aggregatePaginate(books ?? [], options)//return data as docs 
 }
 
