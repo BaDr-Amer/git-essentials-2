@@ -2,19 +2,17 @@ import express from "express";
 import bookRouter from "./modules/book/routes.js"
 import authorRouter from "./modules/author/routes.js"
 import fileRouter from "./modules/files/routes.js"
-
 import { ApiError } from "./errors/ApiError.js"
 import connect from './core/db.js'
 
 connect().then(() => {
+    import('./jobs/index.js')
     const app = express()
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
-
     app.use('/books', bookRouter)
     app.use('/files', fileRouter)
     app.use('/authors', authorRouter)
-
     app.use((err, req, res, next) => {
         if (err instanceof ApiError) {
             return res.status(err.code).json(err)

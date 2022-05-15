@@ -6,9 +6,9 @@ const authorSchema = new mongoose.Schema({
     last_name: { type: String },
     fullName: String,
     author_image: { type: String }
-
 }, {
-    timestamps: true
+    timestamps: true,
+    strict: false
 })
 
 
