@@ -15,19 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const updatelogs_1 = __importDefault(require("../Jobs/updatelogs"));
 exports.default = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let atEnd = performance.now() - req.atStart;
-    let date = req.body.createdAt;
-    if (req.method === 'GET' || req.body.createdAt == undefined) {
-        date = new Date();
-    }
-    else if (req.body.createdAt.getTime() !== req.body.updatedAt.getTime()) {
-        date = req.body.updatedAt;
-    }
+    // if (req.method === 'GET'|| req.body.createdAt == undefined) {
+    // date =new Date()
+    // }else if(req.body.createdAt.getTime() !==req.body.updatedAt.getTime()) {
+    // date=req.body.updatedAt
+    // }
     let log = {
         UserId: req.userId,
         OriginalUrl: req.originalUrl,
         Method: req.method,
         Status: res.statusCode,
-        Date: date,
+        Date: req.date,
         ResponseTime: atEnd
     };
     const x = yield updatelogs_1.default.add(log);

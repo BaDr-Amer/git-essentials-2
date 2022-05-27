@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { SoftDeleteModel,SoftDeleteDocument }  from 'mongoose-delete';
+import  MongooseDelete from 'mongoose-delete';
 export interface ReqUser {
     email: string,
     password: string,
@@ -11,10 +13,9 @@ export interface ReqUser {
 
 }
 
-export interface IUser extends  ReqUser  ,Document{
+export interface IUser extends  ReqUser ,Document  ,SoftDeleteDocument   {
 
 }
-
 const user  =  new  mongoose.Schema<IUser>({
 
     email: { type: String, required: true, unique: true },
@@ -27,22 +28,25 @@ const user  =  new  mongoose.Schema<IUser>({
     updatedAt : Date
     
 })
-user.pre('save', function (next) {
+user.plugin(MongooseDelete, { overrideMethods: true ,deletedAt : true });
+// router.use(async (req,res,next)=>{
+
+// user.pre('save', function (next) {
     
 
 
-    if (this.isNew) {
-        this.set({ createdAt: Date.now() })
-        this.set({ updatedAt: Date.now() })
-        this.$locals.wasNew = this.isNew
+//     if (this.isNew) {
+//         this.set({ createdAt: Date.now() })
+//         this.set({ updatedAt: Date.now() })
+//         this.$locals.wasNew = this.isNew
         
-    } else {
-        this.set({ updatedAt: Date.now() })
-    }
+//     } else {
+//         this.set({ updatedAt: Date.now() })
+//     }
 
    
 
-    next()
-})
-
-export default mongoose.model<IUser>('User', user)
+//     next()
+// })
+// })
+export default mongoose.model<IUser,SoftDeleteModel<IUser>>('User', user)

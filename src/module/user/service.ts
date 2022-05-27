@@ -6,9 +6,9 @@ import { ApiError } from '../../errors/ApiError'
 import  Redis  from 'ioredis'
 const redis =new Redis({});
 
-export const create = async ({ email , password, firstName, lastName ,middleName,isInfected })  => {
+export const create = async ({ email , password, firstName, lastName ,middleName,isInfected ,createdAt,updatedAt })  => {
     const hash = await bcrypt.hash(password, 3)
-    const user  = await User.create({ email, password: hash, firstName, lastName ,middleName,isInfected })
+    const user  = await User.create({ email, password: hash, firstName, lastName ,middleName,isInfected ,createdAt,updatedAt})
     const obj = { user, emailTemplate: '' }
     return user
 }
@@ -45,3 +45,12 @@ throw ApiError.userNotFoundError('userNotFound')
 
 
 
+export const updateMany = async( { firstName, updatedFirstName , updatedAt :updatedAt})=> {
+return await User.updateMany({firstName},{$set : {firstName : updatedFirstName , updatedAt }})
+}
+
+export const deleteByFirstName = async({firstName})=> {
+return await User.delete({firstName})
+
+
+}

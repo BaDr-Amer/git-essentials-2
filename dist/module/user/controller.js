@@ -35,14 +35,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findById = exports.changeInfection = exports.login = exports.create = void 0;
+exports.deleteByFirstName = exports.updateMany = exports.findById = exports.changeInfection = exports.login = exports.create = void 0;
 const ApiError_1 = require("../../errors/ApiError");
 const service = __importStar(require("./service"));
 const User_1 = __importDefault(require("../../model/User"));
 const create = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password, firstName, lastName, middleName = "jamal", isInfected = false } = req.body;
+    const createdAt = req.date;
+    const updatedAt = req.date;
     try {
-        const user = yield service.create({ email, password, firstName, lastName, middleName, isInfected });
+        const user = yield service.create({ email, password, firstName, lastName, middleName, isInfected, createdAt: createdAt, updatedAt: updatedAt });
         res.send(user);
         req.body = user;
     }
@@ -80,3 +82,20 @@ const findById = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     next();
 });
 exports.findById = findById;
+const updateMany = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { firstName, updatedFirstName } = req.body;
+    const { updatedAt } = req.date;
+    const update = yield service.updateMany({ firstName, updatedFirstName, updatedAt: updatedAt });
+    res.send(update);
+    next();
+});
+exports.updateMany = updateMany;
+const deleteByFirstName = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { firstName } = req.body;
+    const del = yield service.deleteByFirstName({ firstName });
+    const findDate = yield User_1.default.findOneWithDeleted({ firstName });
+    req.date = findDate.deletedAt;
+    res.send(del);
+    next();
+});
+exports.deleteByFirstName = deleteByFirstName;

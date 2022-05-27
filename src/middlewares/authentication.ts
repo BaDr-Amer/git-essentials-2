@@ -20,6 +20,7 @@ export default async (req, res, next) => {
             req.userId = payload['_id']
             // req.isInfected= payload['isInfected']
             req.atStart =performance.now()
+            req.date= new Date()
             return next()
         }
     } catch (e) {

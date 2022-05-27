@@ -31,10 +31,12 @@ const router = express_1.default.Router();
 const createUserValidator_1 = __importDefault(require("./validators/createUserValidator"));
 const controller = __importStar(require("./controller"));
 const authentication_1 = __importDefault(require("../../middlewares/authentication"));
+const auditLog_1 = __importDefault(require("../../middlewares/auditLog"));
 router.use(authentication_1.default);
 router.post('/signup', createUserValidator_1.default, controller.create);
 router.post('/login', controller.login);
 router.post('/change', controller.changeInfection);
 router.get('/:id', controller.findById);
-//  router.use(auditLog)
+router.delete('/delete', controller.deleteByFirstName);
+router.use(auditLog_1.default);
 exports.default = router;

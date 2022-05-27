@@ -13,8 +13,10 @@ import express from 'express';
    router.post('/change',controller.changeInfection)
    
    router.get('/:id', controller.findById)
-   
-  //  router.use(auditLog)
+
+   router.delete('/delete',controller.deleteByFirstName)
+
+    router.use(auditLog)
 
 
  export default router

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.changeInfection = exports.findByEmail = exports.login = exports.create = void 0;
+exports.deleteByFirstName = exports.updateMany = exports.changeInfection = exports.findByEmail = exports.login = exports.create = void 0;
 const User_1 = __importDefault(require("../../model/User"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -20,9 +20,9 @@ const fs_1 = __importDefault(require("fs"));
 const ApiError_1 = require("../../errors/ApiError");
 const ioredis_1 = __importDefault(require("ioredis"));
 const redis = new ioredis_1.default({});
-const create = ({ email, password, firstName, lastName, middleName, isInfected }) => __awaiter(void 0, void 0, void 0, function* () {
+const create = ({ email, password, firstName, lastName, middleName, isInfected, createdAt, updatedAt }) => __awaiter(void 0, void 0, void 0, function* () {
     const hash = yield bcrypt_1.default.hash(password, 3);
-    const user = yield User_1.default.create({ email, password: hash, firstName, lastName, middleName, isInfected });
+    const user = yield User_1.default.create({ email, password: hash, firstName, lastName, middleName, isInfected, createdAt, updatedAt });
     const obj = { user, emailTemplate: '' };
     return user;
 });
@@ -52,3 +52,11 @@ const changeInfection = (userId) => __awaiter(void 0, void 0, void 0, function* 
         throw ApiError_1.ApiError.userNotFoundError('userNotFound');
 });
 exports.changeInfection = changeInfection;
+const updateMany = ({ firstName, updatedFirstName, updatedAt: updatedAt }) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield User_1.default.updateMany({ firstName }, { $set: { firstName: updatedFirstName, updatedAt } });
+});
+exports.updateMany = updateMany;
+const deleteByFirstName = ({ firstName }) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield User_1.default.delete({ firstName });
+});
+exports.deleteByFirstName = deleteByFirstName;

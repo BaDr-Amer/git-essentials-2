@@ -34,6 +34,7 @@ exports.default = (req, res, next) => __awaiter(void 0, void 0, void 0, function
             req.userId = payload['_id'];
             // req.isInfected= payload['isInfected']
             req.atStart = performance.now();
+            req.date = new Date();
             return next();
         }
     }
