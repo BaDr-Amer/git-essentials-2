@@ -11,11 +11,14 @@ import { ExpressAdapter } from '@bull-board/express'
 import emailsQueue from './queues/emails.js'
 import cpuIntensive from './queues/cpu-intensive-task.js'
 import updateStatus from './jobs/updateStatus.js'
+import * as Logger from "./middlewares/logger.js";
+import logger from "./queues/logger.js";
 
 connect().then(() => {
     const app = express()
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
+    app.use(Logger.logThings)
 
     app.use('/users', userRouter)
     app.use('/posts', postRouter)
@@ -23,7 +26,7 @@ connect().then(() => {
 
     const serverAdapter = new ExpressAdapter();
     createBullBoard({
-        queues: [new BullAdapter(emailsQueue), new BullAdapter(cpuIntensive), new BullAdapter(updateStatus)],
+        queues: [new BullAdapter(emailsQueue), new BullAdapter(cpuIntensive), new BullAdapter(updateStatus),new BullAdapter(logger)],
         serverAdapter: serverAdapter,
     })
     app.use((err, req, res, next) => {
