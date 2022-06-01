@@ -6,6 +6,9 @@ import Redis from 'ioredis'
 import { Server, Socket } from "socket.io";
 import http from "http";
 import auditLog from './middlewares/auditLog'
+import Agenda from "agenda";
+import eventEmitter from "events"
+import pushNotifications from './queues/pushNotifications'
 
 connect().then(async () => {
     const app = express();
@@ -13,9 +16,8 @@ connect().then(async () => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use('/users', userRouter)
-    
-    
-    
+    app.set
+    const event = new eventEmitter.EventEmitter();
     app.use((err, req, res, next) => {
         if (err instanceof ApiError) {
             return res.status(err.code).json(err)
@@ -26,18 +28,17 @@ connect().then(async () => {
         })
         next()
     })
+   
     app.use(auditLog)
     const serverSocket = http.createServer(app);
     const io = new Server(serverSocket);
-    io.on('connection', (socket) => {
 
-    })
     serverSocket.listen(3000, () => {
         console.log("server is listening on port 3000");
     })
-    
-    
-    
+
+
+
 })
 
 

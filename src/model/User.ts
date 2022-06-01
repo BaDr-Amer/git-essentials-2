@@ -9,8 +9,8 @@ export interface ReqUser {
     lastName: string,
     isInfected: boolean,
     createdAt : Date,
-    updatedAt : Date
-
+    updatedAt : Date,
+    reminder : Object
 }
 
 export interface IUser extends  ReqUser ,Document  ,SoftDeleteDocument   {
@@ -25,7 +25,9 @@ const user  =  new  mongoose.Schema<IUser>({
     lastName: String,
     isInfected: Boolean,
     createdAt : Date,
-    updatedAt : Date
+    updatedAt : Date,
+    reminder : Object
+
     
 })
 user.plugin(MongooseDelete, { overrideMethods: true ,deletedAt : true });

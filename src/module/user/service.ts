@@ -2,14 +2,25 @@ import User, { IUser } from '../../model/User'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import fs from 'fs'
+import Reminder from  '../../model/reminder'
 import { ApiError } from '../../errors/ApiError'
 import  Redis  from 'ioredis'
+import pushNotifications from "../../queues/pushnotifications"
+
+import eventEmitter from "events"
+
 const redis =new Redis({});
 
 export const create = async ({ email , password, firstName, lastName ,middleName,isInfected ,createdAt,updatedAt })  => {
     const hash = await bcrypt.hash(password, 3)
-    const user  = await User.create({ email, password: hash, firstName, lastName ,middleName,isInfected ,createdAt,updatedAt})
-    const obj = { user, emailTemplate: '' }
+    let reminder 
+   
+    const user  = await User.create({ email, password: hash, firstName, lastName  ,createdAt,updatedAt/*,reminder*/})
+    if(!firstName||!lastName){
+        reminder = await Reminder.findOne({ reminderName : "Registration"})
+        pushNotifications.add({...reminder._doc , user_id : user.id }) 
+    }
+
     return user
 }
 

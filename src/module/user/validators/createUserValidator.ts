@@ -2,9 +2,9 @@ import { body } from 'express-validator'
 import validate from '../../../core/errorMiddleware'
 const rules = [
     body('firstName')
-        .isLength({ min: 4, max: 20 }),
+        .optional().isLength({ min: 4, max: 20 }),
     body('lastName')
-        .isLength({ min: 4, max: 20 }),
+    .optional().isLength({ min: 4, max: 20 }),
     // body('email')
     //     .isEmail().withMessage('invalid email').bail()
     //     .normalizeEmail()

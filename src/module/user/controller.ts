@@ -5,10 +5,10 @@ import User from '../../model/User'
 
 export const create = async (req, res, next) => {
   const { email, password, firstName, lastName, middleName = "jamal", isInfected = false }: IUser = req.body
-  const createdAt =req.date
-  const updatedAt =req.date
+  const createdAt = req.date
+  const updatedAt = req.date
   try {
-    const user: IUser = await service.create({ email, password, firstName, lastName, middleName, isInfected, createdAt : createdAt, updatedAt :updatedAt })
+    const user: IUser = await service.create({ email, password, firstName, lastName, middleName, isInfected, createdAt: createdAt, updatedAt: updatedAt })
     res.send(user)
     req.body = user
 
@@ -51,23 +51,23 @@ export const findById = async (req, res, next) => {
 
 
 
-export const updateMany= async (req, res,next)=> {
-  const {firstName, updatedFirstName}=req.body
-  const {updatedAt}= req.date
-const update = await service.updateMany({firstName,updatedFirstName, updatedAt :updatedAt})
-res.send(update)
-next()
+export const updateMany = async (req, res, next) => {
+  const { firstName, updatedFirstName } = req.body
+  const { updatedAt } = req.date
+  const update = await service.updateMany({ firstName, updatedFirstName, updatedAt: updatedAt })
+  res.send(update)
+  next()
 }
 
 
 
 export const deleteByFirstName = async (req, res, next) => {
-  const {firstName}=req.body
-  const del =await service.deleteByFirstName({firstName})
-  const findDate =await User.findOneWithDeleted({firstName})
-  req.date= findDate.deletedAt
-res.send(del)
-next()
+  const { firstName } = req.body
+  const del = await service.deleteByFirstName({ firstName })
+  const findDate = await User.findOneWithDeleted({ firstName })
+  req.date = findDate.deletedAt
+  res.send(del)
+  next()
 
 }
 

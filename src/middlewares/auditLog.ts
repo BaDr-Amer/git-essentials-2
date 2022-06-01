@@ -1,6 +1,6 @@
 import { AuditLog } from "../model/AuditLog"
 
-import queue from '../Jobs/updatelogs'
+import queue from '../queues/updatelogs'
 export default async (req, res, next) => {
 let atEnd=performance.now()-req.atStart
 

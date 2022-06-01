@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/agenda": "^4.1.0",
     "@types/mongoose-delete": "^0.5.9",
+    "agenda": "^4.3.0",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "bull": "^4.8.3",
