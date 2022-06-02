@@ -33,7 +33,7 @@ queue.process(async (jobs) => {
 
     })
     await agenda.start()
-    if (jobs.data.type == 'after') {
+    if (jobs.data.when == 'after') {
         // endDate = new Date(new Date(jobs.data.date + (humanInterval(jobs.data.interval) * jobs.data.repetition)))
         await agenda.schedule(
           jobs.data.scheduleAfter,
@@ -45,7 +45,7 @@ queue.process(async (jobs) => {
           }
         );
     }
-    else { jobs.data.type == 'before' }
+    else /*if( jobs.data.when == 'before')*/ {}
 
 })
 
