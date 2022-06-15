@@ -17,9 +17,35 @@ connect().then(() => {
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
 
-    app.use('/users', userRouter)
-    app.use('/posts', postRouter)
-    app.use('/admins', adminRouter)
+    app.use('/api/users', userRouter)
+    app.use('/api/posts', postRouter)
+    app.use('/api/admins', adminRouter)
+
+    app.set('view engine', 'ejs')
+
+    // index page
+    app.get('/', function (req, res) {
+        const users = [{
+            id: 1,
+            name: 'Zaid'
+        }]
+        res.render('pages/index', {
+            users
+        })
+    })
+
+    app.post('/login', function (req, res) {
+        const { email, password } = req.body
+        console.log(email, password)
+        // validate email and password
+        if (valid) {
+            res.render('pages/profile', { user })
+        } else {
+            res.render('pages/index', {
+                errorMessage: 'invalid email or password'
+            })
+        }
+    })
 
     const serverAdapter = new ExpressAdapter();
     createBullBoard({
