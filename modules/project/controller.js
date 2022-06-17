@@ -10,7 +10,7 @@ export const create = async (req, res) => {
 export const createStage = async (req, res) => {
     const { name, order, ticket_count } = req.body
     const stage = await service.create({ name, order, ticket_count })
-    res.status(201).send(project)
+    res.status(201).send(stage)
 }
 
 export const createTicket = async (req, res) => {

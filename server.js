@@ -2,6 +2,7 @@ import express from "express";
 import userRouter from "./modules/user/routes.js"
 import postRouter from "./modules/post/routes.js"
 import adminRouter from "./modules/admin/routes.js"
+import projectRouter from './modules/project/routes.js'
 import { ApiError } from "./errors/ApiError.js"
 import connect from './core/db.js'
 import { createBullBoard } from '@bull-board/api'
@@ -20,6 +21,7 @@ connect().then(() => {
     app.use('/users', userRouter)
     app.use('/posts', postRouter)
     app.use('/admins', adminRouter)
+    app.use('/project', projectRouter)
 
     const serverAdapter = new ExpressAdapter();
     createBullBoard({
