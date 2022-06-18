@@ -1,6 +1,5 @@
 import express from "express";
 import userRouter from "./modules/user/routes.js"
-import postRouter from "./modules/post/routes.js"
 import adminRouter from "./modules/admin/routes.js"
 import projectRouter from './modules/project/routes.js'
 import { ApiError } from "./errors/ApiError.js"
@@ -19,7 +18,6 @@ connect().then(() => {
     app.use(express.urlencoded({ extended: true }))
 
     app.use('/users', userRouter)
-    app.use('/posts', postRouter)
     app.use('/admins', adminRouter)
     app.use('/project', projectRouter)
 

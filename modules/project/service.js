@@ -1,8 +1,7 @@
 import Ticket from '../../models/Ticket.js'
 import Project from '../../models/Project.js'
-import Comments from '../../models/Comment.js'
 import Bug from '../../models/Bug.js'
-import Stage from '../../models/Satge.js'
+import Stage from '../../models/Stage.js'
 import Comment from '../../models/Comment.js'
 
 export const create = async ({ name, Workflow, user_id }) => {

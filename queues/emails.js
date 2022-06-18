@@ -4,7 +4,7 @@ import cluster from 'cluster'
 
 const emailQueue = new Queue('emails queue', connection)
 
-if (cluster.isPrimary) {
+if (false) {
     for (let index = 0; index < 8; index++) {
         cluster.fork()
     }
